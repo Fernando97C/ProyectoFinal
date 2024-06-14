@@ -1,0 +1,101 @@
+print("              Interpolación por diferencias divididas de Newton\n\n\n")
+                # Solicitar y leer las coordenadas de los puntos
+print("Ingrese los valores de la primera coordenada (x): ")
+x0 = float(input())
+print("Ingrese los valores de la primera coordenada (y): ")
+fx0 = float(input())
+print("Ingrese los valores de la segunda coordenada (x): ")
+x1 = float(input())
+print("Ingrese los valores de la segunda coordenada (y): ")
+fx1 = float(input())
+print("Ingrese los valores de la tercera coordenada (x): ")
+x2 = float(input())
+print("Ingrese los valores de la tercera coordenada (y): ")
+fx2 = float(input())
+                    #Mostrar los datos ingresados
+print("\nDatos:\n")
+print("n = 3")
+print("x0 = "+str(x0)+"    "+ "y0 = "+str(fx0))
+print("x1 = "+str(x1)+"    "+ "y1 = "+str(fx1))
+print("x2 = "+str(x2)+"    "+ "y2 = "+str(fx2))
+
+                    #Cálculo de la primera diferencia dividida f(x0,x1)
+fx0x1 = ((fx1-fx0)/(x1-x0))
+print("\n\nf(x0,x1)= "+"     f(x1)-f(x0)"+"     "+str(fx1)+" - "+str(fx0))
+print("               -----------"+"  =  ----------   =  "+str(fx0x1))
+print("                  x1-x0"+"         "+str(x1)+" - "+str(x0))
+
+                    #Cálculo de la segunda diferencia dividida f(x1,x2)
+fx1x2 = ((fx2-fx1)/(x2-x1))
+print("\n\nf(x1,x2)= "+"     f(x2)-f(x1)"+"     "+str(fx2)+" - "+str(fx1))
+print("               -----------"+"  =  -----------   =  "+str(fx1x2))
+print("                  x2-x1"+"         "+str(x2)+" - "+str(x1))
+
+                    #Cálculo de la tercera diferencia dividida f(x2,x3)
+fx0x1x2 = ((fx1x2-fx0x1)/(x2-x0))
+print("\n\nf(x0,x1,x2)= "+"  f(x1,x2)-f(x0,x1)"+"      "+str(fx1x2)+" - "+str(fx0x1))
+print("               ------------------"+"  =  ------------   =  "+str(fx0x1x2))
+print("                      x2-x0"+"           "+str(x2)+" - "+str(x0))
+
+
+                    #Tabla de diferencias divididas
+print("\n\n---------------------------------")
+print("| j |     Xj    |     f(Xj)      |")
+print("----------------------------------")
+print("| 0 |  "+"x0 = "+str(x0)+"  |  "+"f(x0) = "+str(fx0)+"  |  ")
+print("-------------------------------------------------------")
+print("| 1 |  "+"x1 = "+str(x1)+"  |  "+"f(x1) = "+str(fx1)+"  |   "+"f(x0,x1) = "+str(fx0x1)+"  |")
+print("------------------------------------------------------------------------------")
+print("| 2 |  "+"x2 = "+str(x2)+"  |  "+"fx2 = "+str(fx2)+"  |   "+"f(x1,x2) = "+str(fx1x2)+"   |"+ "  f(x0,x1,x2) = "+str(fx0x1x2)+"  |")
+print("------------------------------------------------------------------------------")
+
+                    #Asignacion de valores a las nuevas variables
+a0 = fx0
+a1 = fx0x1
+a2 = fx0x1x2
+
+print("\nDiferencias Divididas: ")
+print("a0 = "+str(a0))
+print("a1 = "+str(a1))
+print("a2 = "+str(a2))
+
+                    #Formula de interpolacion
+print("\nFormula: ")
+print("\nPn (x) = a0 + a1(x-x0) + a2(x-x0)(x-x1)")
+print("-----------------------------------------")
+print("\nPn (x) = "+str(a0)+" + "+str(a1)+"(x-"+str(x0)+") + "+str(a2)+"(x-" +str(x0)+")(x-"+str(x1)+")")
+
+                    #Extraer coeficientes para la forma ax^2±bx±c
+a = a2
+b = a1 - a2*(x0 + x1)
+c = a0 - a1*x0 + a2*x0*x1
+
+
+                    #Construccion del polinomio
+polinomio = f"{a}x^2"
+if b >= 0:
+    polinomio += f" + {b}x"
+else:
+    polinomio += f" - {-b}x"
+if c >= 0:
+    polinomio += f" + {c}"
+else:
+    polinomio += f" - {-c}"
+                    #Polinomio resultante
+print(f"\nEl polinomio resultante es: {polinomio}")
+
+                    # Calcular el valor de x en un punto específico
+while True:
+    print("----------------------------------------------")
+    print("\nIngrese el valor de x para evaluar el polinomio: ")
+    x = float(input())
+
+    Pn_x = a0 + a1 * (x - x0) + a2 * (x - x0) * (x - x1)
+    print(f"\nEl valor de Pn({x}) es: {Pn_x}")
+    print("----------------------------------------------")
+    print("\n¿Desea calcular otro valor? (s/n): ")
+    respuesta = input().strip().lower()
+    if respuesta != 's':
+        break
+
+print("\nGracias por utilizar mi herramienta.")
